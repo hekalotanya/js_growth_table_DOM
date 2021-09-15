@@ -15,10 +15,7 @@ container.addEventListener('click', (e) => {
 
   switch (e.target) {
     case appendRowButton:
-      if (rows.length === 9) {
-        appendRowButton.disabled = true;
-      }
-
+      appendRowButton.disabled =rows.length === 9;
       removeRowButton.disabled = false;
 
       const newRow = firstRow.cloneNode(true);
@@ -28,18 +25,15 @@ container.addEventListener('click', (e) => {
       break;
 
     case removeRowButton:
-      if (rows.length === 3) {
-        removeRowButton.disabled = true;
-      }
+      removeRowButton.disabled = rows.length === 3;
       appendRowButton.disabled = false;
 
       firstRow.remove();
       break;
 
     case appendColumnButton:
-      if (firstRowChildren.length === 9) {
-        appendColumnButton.disabled = true;
-      }
+
+      appendColumnButton.disabled = firstRowChildren.length === 9;
       removeColumnButton.disabled = false;
 
       for (let i = 0; i < rows.length; i++) {
@@ -64,9 +58,7 @@ container.addEventListener('click', (e) => {
 
       const newfirstRowChildren = [...document.querySelector('tr').children];
 
-      if (newfirstRowChildren.length === 2) {
-        removeColumnButton.disabled = true;
-      }
+      removeColumnButton.disabled = newfirstRowChildren.length === 2;
       appendColumnButton.disabled = false;
 
       break;
