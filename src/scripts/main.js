@@ -15,60 +15,60 @@ container.addEventListener('click', (e) => {
 
   switch (e.target) {
     case appendRowButton:
-      removeRowButton.disabled = false;
-
       if (rows.length === 9) {
         appendRowButton.disabled = true;
       }
 
-      if (rows.length < 10) {
-        const newRow = firstRow.cloneNode(true);
-        const table = document.querySelector('.field');
+      removeRowButton.disabled = false;
 
-        table.append(newRow);
-      }
+      const newRow = firstRow.cloneNode(true);
+      const table = document.querySelector('.field');
+
+      table.append(newRow);
       break;
 
     case removeRowButton:
-      appendRowButton.disabled = false;
-
       if (rows.length === 3) {
         removeRowButton.disabled = true;
       }
+      appendRowButton.disabled = false;
 
-      if (rows.length > 2) {
-        firstRow.remove();
-      }
+      firstRow.remove();
       break;
 
     case appendColumnButton:
-      removeColumnButton.disabled = false;
-
-      if (firstRowChildren.length < 10) {
-        for (let i = 0; i < rows.length; i++) {
-          const newRow = document.createElement('td');
-
-          rows[i].append(newRow);
-        }
-      }
-
       if (firstRowChildren.length === 9) {
         appendColumnButton.disabled = true;
+      }
+      removeColumnButton.disabled = false;
+
+      for (let i = 0; i < rows.length; i++) {
+        const newRow = document.createElement('td');
+
+        rows[i].append(newRow);
       }
       break;
 
     case removeColumnButton:
-      appendColumnButton.disabled = false;
+      let RowlastChild = [];
+
+      for (const i of rows) {
+        RowlastChild.push(i.lastElementChild);
+      }
 
       if (firstRowChildren.length > 2) {
-        for (let i = 0; i < rows.length; i++) {
-          rows[i].firstChild.remove();
+        for (const i of RowlastChild) {
+          i.remove();
         }
       }
 
-      if (firstRowChildren.length === 3) {
+      const newfirstRowChildren = [...document.querySelector('tr').children];
+
+      if (newfirstRowChildren.length === 2) {
         removeColumnButton.disabled = true;
       }
+      appendColumnButton.disabled = false;
+
       break;
   }
 });
